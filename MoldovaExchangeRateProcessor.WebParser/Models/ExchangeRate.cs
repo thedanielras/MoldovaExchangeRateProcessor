@@ -23,5 +23,10 @@ namespace MoldovaExchangeRateProcessor.WebParser.Models
             SellRate = sellRate;
             Currency = currency;
         }
+
+        public override string ToString()
+        {
+            return $"{Currency.ToString()}: Buy Rate - {BuyRate.ToString(".00")}\n{Currency.ToString()}: Sell Rate - {SellRate.ToString(".00")}";
+        }
     }
 }
