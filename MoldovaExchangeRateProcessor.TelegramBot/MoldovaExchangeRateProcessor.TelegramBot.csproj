@@ -1,12 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UserSecretsId>7e16c914-1edd-49e4-b115-72a2b2dfbafd</UserSecretsId>
   </PropertyGroup>
-
+  <ItemGroup>
+    <PackageReference Include="Telegram.Bot" Version="15.7.1" />
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MoldovaExchangeRateProcessor.WebParser\MoldovaExchangeRateProcessor.WebParser.csproj" />
   </ItemGroup>
-
 </Project>
