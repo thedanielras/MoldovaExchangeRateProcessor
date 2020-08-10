@@ -18,11 +18,11 @@ namespace MoldovaExchangeRateProcessor.TelegramBot.Commands
         public string Execute()
         {
             StringBuilder result = new StringBuilder();
-
+            int i = 0;
             foreach (var bank in banks)
-            {
+            {               
                 var exchangeRates = bank.GetExchangeRates();
-
+                if (i > 0) result.Append("\n");
                 result.Append($"Bank Name: { bank.Name }\n");
 
                 foreach (var exchangeRate in exchangeRates)
@@ -30,6 +30,8 @@ namespace MoldovaExchangeRateProcessor.TelegramBot.Commands
                     result.Append(exchangeRate.ToString());
                     result.Append('\n');
                 }
+
+                i++;
             }
 
 
