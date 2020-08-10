@@ -20,7 +20,7 @@ namespace MoldovaExchangeRateProcessor.TelegramBot
                 case "help":
                     return new HelpCommand();
                 case "getExchange":
-                    return new GetExchangeRateCommand(new List<Bank>() { new MoldovaAgroindbank() });
+                    return new GetExchangeRateCommand(new List<Bank>() { new MoldovaAgroindbank(), new Victoriabank() });
                 default:
                     return new UnknownCommand();
             }
