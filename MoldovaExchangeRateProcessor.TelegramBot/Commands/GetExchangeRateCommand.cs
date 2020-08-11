@@ -2,6 +2,7 @@
 using MoldovaExchangeRateProcessor.WebParser.Models.Banks;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace MoldovaExchangeRateProcessor.TelegramBot.Commands
@@ -18,22 +19,19 @@ namespace MoldovaExchangeRateProcessor.TelegramBot.Commands
         public string Execute()
         {
             StringBuilder result = new StringBuilder();
-            int i = 0;
-            foreach (var bank in banks)
-            {               
-                var exchangeRates = bank.GetExchangeRates();
-                if (i > 0) result.Append("\n");
+
+            var exchangeRates = banks.SelectMany((bank, index) =>
+            {
+                if (index > 0) result.Append("\n");
                 result.Append($"Bank Name: { bank.Name }\n");
+                return bank.GetExchangeRates();
+            });
 
-                foreach (var exchangeRate in exchangeRates)
-                {
-                    result.Append(exchangeRate.ToString());
-                    result.Append('\n');
-                }
-
-                i++;
+            foreach (var rate in exchangeRates)
+            {
+                result.Append(rate.ToString());
+                result.Append('\n');
             }
-
 
             return result.ToString();
         }
