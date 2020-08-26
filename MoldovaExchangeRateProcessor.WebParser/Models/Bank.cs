@@ -1,32 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 
 namespace MoldovaExchangeRateProcessor.WebParser.Models
 {
-    public abstract class Bank
+    public class Bank
     {
-        public string Name { get; private set; }
-        public string WebUrl { get; private set; }
+        public Bank()
+        {
 
-        protected string webHtmlContent { get; set; }
-        protected List<ExchangeRate> exchangeRates;
-        private IWebWorker webWorker { get; set; }
-
-        public Bank(string name, string webUrl, IWebWorker webWorker)
+        }
+        public Bank(string name, List<ExchangeRate> rates)
         {
             Name = name;
-            WebUrl = webUrl;
-            this.webWorker = webWorker;
-
-            setWebContent();
-        }               
-        private void setWebContent()
-        {
-            string html = webWorker.GetHtml(WebUrl);
-
-            webHtmlContent = html;
+            ExchangeRates = rates;
         }
-        public abstract List<ExchangeRate> GetExchangeRates();
+        
+        public int Id { get; private set; }
+        [Required]
+        [StringLength(50)]
+        public string Name { get; set; }
+        public List<ExchangeRate> ExchangeRates { get; set; }
     }
 }
