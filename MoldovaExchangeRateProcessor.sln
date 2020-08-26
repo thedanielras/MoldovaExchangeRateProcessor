@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30320.27
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MoldovaExchangeRateProcessor.TelegramBot", "MoldovaExchangeRateProcessor.TelegramBot\MoldovaExchangeRateProcessor.TelegramBot.csproj", "{3B357113-6663-46BB-9607-3BEA0121178F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MoldovaExchangeRateProcessor.TelegramBot", "MoldovaExchangeRateProcessor.TelegramBot\MoldovaExchangeRateProcessor.TelegramBot.csproj", "{3B357113-6663-46BB-9607-3BEA0121178F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MoldovaExchangeRateProcessor.WebParser", "MoldovaExchangeRateProcessor.WebParser\MoldovaExchangeRateProcessor.WebParser.csproj", "{1696AC7F-C12E-476F-A090-F2BD9AD1C5B8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MoldovaExchangeRateProcessor.WebParser", "MoldovaExchangeRateProcessor.WebParser\MoldovaExchangeRateProcessor.WebParser.csproj", "{1696AC7F-C12E-476F-A090-F2BD9AD1C5B8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MoldovaEchangeRateProcessor.ProcessorWorkerService", "MoldovaEchangeRateProcessor.ProcessorWorkerService\MoldovaEchangeRateProcessor.ProcessorWorkerService.csproj", "{C17C6121-DE2F-4ACB-88C3-B05655F766C9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{1696AC7F-C12E-476F-A090-F2BD9AD1C5B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1696AC7F-C12E-476F-A090-F2BD9AD1C5B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1696AC7F-C12E-476F-A090-F2BD9AD1C5B8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C17C6121-DE2F-4ACB-88C3-B05655F766C9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C17C6121-DE2F-4ACB-88C3-B05655F766C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C17C6121-DE2F-4ACB-88C3-B05655F766C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C17C6121-DE2F-4ACB-88C3-B05655F766C9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

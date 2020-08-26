@@ -8,10 +8,21 @@ namespace MoldovaExchangeRateProcessor.WebParser
     public class WebWorker : IWebWorker
     {
         private HttpClient httpClient;
+        private static WebWorker _instance = null;
 
-        public WebWorker()
+        private WebWorker()
         {
             httpClient = new HttpClient();
+        }
+
+        public static WebWorker GetInstance()
+        {
+            if(_instance == null)
+            {
+                _instance = new WebWorker();
+            }
+
+            return _instance;
         }
 
         public string GetHtml(string url)

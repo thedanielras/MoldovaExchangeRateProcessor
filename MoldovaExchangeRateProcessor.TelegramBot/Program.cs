@@ -1,9 +1,15 @@
 ﻿using System;
 using MoldovaExchangeRateProcessor.WebParser;
 using MoldovaExchangeRateProcessor.WebParser.Models;
-using MoldovaExchangeRateProcessor.WebParser.Models.Banks;
+using MoldovaExchangeRateProcessor.WebParser.Models.BankProcessors;
 using Telegram.Bot;
 using Telegram.Bot.Args;
+using Microsoft.Extensions.Hosting;
+using Serilog;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.EntityFrameworkCore;
+using MoldovaExchangeRateProcessor.TelegramBot.Data;
 
 namespace MoldovaExchangeRateProcessor.TelegramBot
 {
@@ -11,11 +17,30 @@ namespace MoldovaExchangeRateProcessor.TelegramBot
     {
         static void Main()
         {
-            var botClient = ExchangeRateProcessorBotClient.GetBotClient();
+            var configBuilder = new ConfigurationBuilder();
 
-            Console.WriteLine("Press any key to exit");
-            Console.ReadKey();
-            botClient.StopRecieving();
+            Log.Logger = new LoggerConfiguration()
+                .ReadFrom.Configuration(configBuilder.Build())
+                .Enrich.FromLogContext()
+                .WriteTo.Console()
+                .CreateLogger();
+
+            Log.Logger.Information("Application Starting");
+
+            var host = Host.CreateDefaultBuilder()
+                .ConfigureServices((context, services) =>
+                {
+                    string connectionString = context.Configuration.GetConnectionString("SqlServerDb");
+                    services.AddTransient<IService, BotClientService>();
+                    services.AddTransient<IRepository, SqlServerRepo>();
+                    services.AddDbContext<SqlServerDbContext>(opt => opt.UseSqlServer(connectionString));
+                  
+                })
+                .UseSerilog()
+                .Build();
+
+            var svc = ActivatorUtilities.CreateInstance<BotClientService>(host.Services);
+            svc.Run();
         }
     }
 }
