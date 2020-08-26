@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace MoldovaExchangeRateProcessor.TelegramBot
 {
     interface IBotBusinessLogic
     {
-        public string RunCommand(string commandLiteral);
+        public Task<string> RunCommandAsync(string commandLiteral);
     }
 }
