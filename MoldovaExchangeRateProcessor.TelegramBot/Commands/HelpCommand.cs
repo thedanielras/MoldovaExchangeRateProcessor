@@ -1,14 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace MoldovaExchangeRateProcessor.TelegramBot.Commands
 {
     class HelpCommand : ICommand
     {
-        public string Execute()
+        public Task<string> ExecuteAsync()
         {
-            return "List of Commands: \n/getExchange - gets the exchange rate";
+            return Task.Run(() => "List of Commands: \n/getCurrent - gets the current exchange rate");
         }
     }
 }
