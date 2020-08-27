@@ -25,13 +25,20 @@ namespace MoldovaExchangeRateProcessor.WebParser.Models.BankProcessors
             var document = await context.OpenAsync(req => req.Content(webHtmlContent));
 
             var usdRate = GetExchangeRateByWebSiteTableColumn(document, 2, ExchangeRateCurrency.USD);
-            rates.Add(usdRate);
+            if (usdRate != null)
+                rates.Add(usdRate);
+
             var eurRate = GetExchangeRateByWebSiteTableColumn(document, 3, ExchangeRateCurrency.EUR);
-            rates.Add(eurRate);
+            if (eurRate != null)
+                rates.Add(eurRate);
+
             var rubRate = GetExchangeRateByWebSiteTableColumn(document, 4, ExchangeRateCurrency.RUB);
-            rates.Add(rubRate);
+            if (rubRate != null)
+                rates.Add(rubRate);
+
             var ronRate = GetExchangeRateByWebSiteTableColumn(document, 5, ExchangeRateCurrency.RON);
-            rates.Add(ronRate);
+            if (ronRate != null)
+                rates.Add(ronRate);
 
             return rates;
         }
@@ -43,7 +50,7 @@ namespace MoldovaExchangeRateProcessor.WebParser.Models.BankProcessors
             string buyRateQuery = $"section.exchange-rates table tbody tr:nth-child({numComlumn}) td:nth-child(2)";
             string sellRateQuery = $"section.exchange-rates table tbody tr:nth-child({numComlumn}) td:nth-child(3)";
 
-            rate =  GetExchangeRateFromDocumentByQuery(document, buyRateQuery, sellRateQuery, currency);            
+            rate = GetExchangeRateFromDocumentByQuery(document, buyRateQuery, sellRateQuery, currency);
 
             return rate;
         }
