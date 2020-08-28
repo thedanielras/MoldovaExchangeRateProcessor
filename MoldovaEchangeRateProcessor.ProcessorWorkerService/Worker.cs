@@ -51,7 +51,7 @@ namespace MoldovaEchangeRateProcessor.ProcessorWorkerService
                         }
                     }
 
-                    await Task.Delay(TimeSpan.FromHours(12), stoppingToken);
+                    await Task.Delay(TimeSpan.FromHours(4), stoppingToken);
                 }
             }
         }
