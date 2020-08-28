@@ -9,7 +9,7 @@ namespace MoldovaExchangeRateProcessor.TelegramBot.Commands
     {
         public Task<string> ExecuteAsync()
         {
-            return new Task<string>(() => "Unknown Command. Type /help for the list of commands.");
+            return Task.Run(() => "Unknown Command. Type /help for the list of commands.");
         }
     }
 }
