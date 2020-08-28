@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MoldovaExchangeRateProcesso
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MoldovaExchangeRateProcessor.WebParser", "MoldovaExchangeRateProcessor.WebParser\MoldovaExchangeRateProcessor.WebParser.csproj", "{1696AC7F-C12E-476F-A090-F2BD9AD1C5B8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MoldovaEchangeRateProcessor.ProcessorWorkerService", "MoldovaEchangeRateProcessor.ProcessorWorkerService\MoldovaEchangeRateProcessor.ProcessorWorkerService.csproj", "{C17C6121-DE2F-4ACB-88C3-B05655F766C9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MoldovaExchangeRateProcessor.ProcessorWorkerService", "MoldovaExchangeRateProcessor.ProcessorWorkerService\MoldovaExchangeRateProcessor.ProcessorWorkerService.csproj", "{C17C6121-DE2F-4ACB-88C3-B05655F766C9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

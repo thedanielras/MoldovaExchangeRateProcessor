@@ -5,13 +5,13 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using MoldovaEchangeRateProcessor.ProcessorWorkerService.Data;
+using MoldovaExchangeRateProcessor.ProcessorWorkerService.Data;
 
-namespace MoldovaEchangeRateProcessor.ProcessorWorkerService.Migrations
+namespace MoldovaExchangeRateProcessor.ProcessorWorkerService.Migrations
 {
     [DbContext(typeof(SqlServerDbContext))]
-    [Migration("20200826122053_AddIndexConstraintToExchangeRateDatePropAndBankPropAndCurrencyProp")]
-    partial class AddIndexConstraintToExchangeRateDatePropAndBankPropAndCurrencyProp
+    [Migration("20200825081757_LimitBankModelsNamePropStringLength")]
+    partial class LimitBankModelsNamePropStringLength
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -56,18 +56,17 @@ namespace MoldovaEchangeRateProcessor.ProcessorWorkerService.Migrations
 
                     b.Property<string>("Currency")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("Date")
-                        .HasColumnType("Date");
+                        .HasColumnType("datetime2");
 
                     b.Property<double>("SellRate")
                         .HasColumnType("float");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("BankId", "Date", "Currency")
-                        .IsUnique();
+                    b.HasIndex("BankId");
 
                     b.ToTable("ExchangeRates");
                 });

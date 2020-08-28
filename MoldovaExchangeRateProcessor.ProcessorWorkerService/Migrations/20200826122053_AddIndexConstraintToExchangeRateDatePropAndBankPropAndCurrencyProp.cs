@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace MoldovaEchangeRateProcessor.ProcessorWorkerService.Migrations
+namespace MoldovaExchangeRateProcessor.ProcessorWorkerService.Migrations
 {
     public partial class AddIndexConstraintToExchangeRateDatePropAndBankPropAndCurrencyProp : Migration
     {

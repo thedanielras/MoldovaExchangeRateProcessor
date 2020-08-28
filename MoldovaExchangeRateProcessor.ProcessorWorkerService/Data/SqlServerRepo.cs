@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace MoldovaEchangeRateProcessor.ProcessorWorkerService.Data
+namespace MoldovaExchangeRateProcessor.ProcessorWorkerService.Data
 {
     public class SqlServerRepo : IRepository
     {

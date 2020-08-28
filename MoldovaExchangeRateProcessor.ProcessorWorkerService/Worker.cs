@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using MoldovaEchangeRateProcessor.ProcessorWorkerService.Data;
+using MoldovaExchangeRateProcessor.ProcessorWorkerService.Data;
 using MoldovaExchangeRateProcessor.WebParser.Models;
 using MoldovaExchangeRateProcessor.WebParser.Models.BankProcessors;
 
-namespace MoldovaEchangeRateProcessor.ProcessorWorkerService
+namespace MoldovaExchangeRateProcessor.ProcessorWorkerService
 {
     public class Worker : BackgroundService
     {
