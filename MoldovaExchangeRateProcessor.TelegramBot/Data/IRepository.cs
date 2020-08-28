@@ -7,7 +7,7 @@ namespace MoldovaExchangeRateProcessor.TelegramBot.Data
 {
     interface IRepository
     {
-        List<ExchangeRate> GetExchangeRatesByDate(DateTime date);
+        List<Bank> GetBanksAndRelativeExchangeRatesByDate(DateTime date);
         List<ExchangeRate> GetExchangeRatesByBankName(string name);
     }
 }

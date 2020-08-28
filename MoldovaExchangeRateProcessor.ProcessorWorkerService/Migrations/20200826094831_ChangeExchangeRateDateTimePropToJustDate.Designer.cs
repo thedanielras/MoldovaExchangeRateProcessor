@@ -5,9 +5,9 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using MoldovaEchangeRateProcessor.ProcessorWorkerService.Data;
+using MoldovaExchangeRateProcessor.ProcessorWorkerService.Data;
 
-namespace MoldovaEchangeRateProcessor.ProcessorWorkerService.Migrations
+namespace MoldovaExchangeRateProcessor.ProcessorWorkerService.Migrations
 {
     [DbContext(typeof(SqlServerDbContext))]
     [Migration("20200826094831_ChangeExchangeRateDateTimePropToJustDate")]

@@ -5,13 +5,13 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using MoldovaEchangeRateProcessor.ProcessorWorkerService.Data;
+using MoldovaExchangeRateProcessor.ProcessorWorkerService.Data;
 
-namespace MoldovaEchangeRateProcessor.ProcessorWorkerService.Migrations
+namespace MoldovaExchangeRateProcessor.ProcessorWorkerService.Migrations
 {
     [DbContext(typeof(SqlServerDbContext))]
-    [Migration("20200825072440_AddToBankModelsNamePropertyUniqueConstraint")]
-    partial class AddToBankModelsNamePropertyUniqueConstraint
+    [Migration("20200826122053_AddIndexConstraintToExchangeRateDatePropAndBankPropAndCurrencyProp")]
+    partial class AddIndexConstraintToExchangeRateDatePropAndBankPropAndCurrencyProp
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -30,14 +30,15 @@ namespace MoldovaEchangeRateProcessor.ProcessorWorkerService.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
 
                     b.HasKey("Id");
 
                     b.HasIndex("Name")
                         .IsUnique();
 
-                    b.ToTable("Bank");
+                    b.ToTable("Banks");
                 });
 
             modelBuilder.Entity("MoldovaExchangeRateProcessor.WebParser.Models.ExchangeRate", b =>
@@ -55,17 +56,18 @@ namespace MoldovaEchangeRateProcessor.ProcessorWorkerService.Migrations
 
                     b.Property<string>("Currency")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("Date")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("Date");
 
                     b.Property<double>("SellRate")
                         .HasColumnType("float");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("BankId");
+                    b.HasIndex("BankId", "Date", "Currency")
+                        .IsUnique();
 
                     b.ToTable("ExchangeRates");
                 });

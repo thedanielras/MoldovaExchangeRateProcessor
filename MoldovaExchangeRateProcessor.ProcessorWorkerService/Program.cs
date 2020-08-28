@@ -7,10 +7,10 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using MoldovaEchangeRateProcessor.ProcessorWorkerService.Data;
+using MoldovaExchangeRateProcessor.ProcessorWorkerService.Data;
 using Serilog;
 
-namespace MoldovaEchangeRateProcessor.ProcessorWorkerService
+namespace MoldovaExchangeRateProcessor.ProcessorWorkerService
 {
     public class Program
     {

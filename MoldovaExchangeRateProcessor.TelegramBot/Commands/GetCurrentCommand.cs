@@ -18,27 +18,31 @@ namespace MoldovaExchangeRateProcessor.TelegramBot.Commands
 
         public Task<string> ExecuteAsync()
         {
-            var rates = _repo.GetExchangeRatesByDate(DateTime.Now);
+            var banks = _repo.GetBanksAndRelativeExchangeRatesByDate(DateTime.Now);
 
             StringBuilder result = new StringBuilder();
 
-            if (rates.Count == 0) result.Append("Whoops, somenthing went wrong, try again later.");
-
-            var ratesGroupedByBankName = rates.GroupBy(r => r.Bank.Name);
+            if (banks.Count == 0) result.Append("Whoops, somenthing went wrong, try again later.");                     
 
             bool firstIterationFlag = true;
-            foreach (var bank in ratesGroupedByBankName)
+            foreach (var bank in banks)
             {
                 if (firstIterationFlag) result.Append("\n");
 
-                string bankName = bank.Key;
+                string bankName = bank.Name;
                 result.Append($"{ bankName }\n");
 
-                foreach(var rate in bank)
+                if(bank.ExchangeRates != null && bank.ExchangeRates.Count > 0)
                 {
-                    result.Append(rate.ToString());
-                    result.Append('\n');
-                }
+                    foreach (var rate in bank.ExchangeRates)
+                    {
+                        result.Append(rate.ToString());
+                        result.Append('\n');
+                    }
+                } else
+                {
+                    result.Append("Not available for today!\n");
+                }               
 
                 result.Append('\n');
                 firstIterationFlag = false;

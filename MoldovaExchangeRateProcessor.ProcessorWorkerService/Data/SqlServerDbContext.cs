@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace MoldovaEchangeRateProcessor.ProcessorWorkerService.Data
+namespace MoldovaExchangeRateProcessor.ProcessorWorkerService.Data
 {
     public class SqlServerDbContext : DbContext
     {

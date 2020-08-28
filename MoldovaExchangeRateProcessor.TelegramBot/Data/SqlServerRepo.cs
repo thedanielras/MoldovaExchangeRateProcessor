@@ -26,23 +26,28 @@ namespace MoldovaExchangeRateProcessor.TelegramBot.Data
             return rates;
         }
 
-        public List<ExchangeRate> GetExchangeRatesByDate(DateTime date)
+        public List<Bank> GetBanksAndRelativeExchangeRatesByDate(DateTime date)
         {
-            //var banks = _context.Banks.Include(b => b.ExchangeRates.Where(e => e.Date.Date == date.Date)).ToList();
-            List<ExchangeRate> rates = new List<ExchangeRate>();
+            List<Bank> banks = null;
             try
             {
-                rates = _context.ExchangeRates
-                        .Where(e => e.Date.Date == date.Date)
-                        .Include(e => e.Bank)
-                        .ToList<ExchangeRate>();               
+                banks = _context.Banks.ToList();
+
+                foreach (var bank in banks)
+                {
+                    _context.Entry(bank)
+                          .Collection(b => b.ExchangeRates)
+                          .Query()
+                          .Where(e => e.Date.Date == date.Date)
+                          .Load();
+                }               
             }
             catch (Exception ex)
             {
                 _logger.LogError("An error ocuured while pulling from db: {0}", ex.Message);
             }
 
-            return rates;
+            return banks;
         }
     }
 }

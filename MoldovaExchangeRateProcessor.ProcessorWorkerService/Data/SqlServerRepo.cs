@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace MoldovaEchangeRateProcessor.ProcessorWorkerService.Data
+namespace MoldovaExchangeRateProcessor.ProcessorWorkerService.Data
 {
     public class SqlServerRepo : IRepository
     {
@@ -29,17 +29,25 @@ namespace MoldovaEchangeRateProcessor.ProcessorWorkerService.Data
 
         public void AddExchangeRate(ExchangeRate rate)
         {
-            if (CheckIfRateAlreadyIsInDb(rate))
+            ExchangeRate dbEntity = TryGetRateFromDb(rate);
+            if (dbEntity != null)
             {
                 _logger.LogInformation("This Rate already exists in the db");
-                return;
-            }
 
-            var bank = GetBankByName(rate.Bank.Name);
-            if (bank != null) bank.ExchangeRates.Add(rate);
+                //Update db entity
+                dbEntity.BuyRate = rate.BuyRate;
+                dbEntity.SellRate = rate.SellRate;
+
+                _context.ExchangeRates.Update(dbEntity);              
+            }
             else
             {
-                _context.Banks.Add(rate.Bank);
+                var bank = GetBankByName(rate.Bank.Name);
+                if (bank != null) bank.ExchangeRates.Add(rate);
+                else
+                {
+                    _context.Banks.Add(rate.Bank);
+                }
             }
 
             try
@@ -55,14 +63,14 @@ namespace MoldovaEchangeRateProcessor.ProcessorWorkerService.Data
         public Bank GetBankByName(string bankName)
         {
             return _context.Banks.Where(b => b.Name == bankName).Include(b => b.ExchangeRates).FirstOrDefault();
-        }   
-        
-        private bool CheckIfRateAlreadyIsInDb(ExchangeRate rate)
+        }    
+
+        private ExchangeRate TryGetRateFromDb(ExchangeRate rate)
         {
             var bank = GetBankByName(rate.Bank.Name);
-            if (bank == null) return false;
+            if (bank == null) return null;
 
-            return bank.ExchangeRates.Any(e => e.Date.Date == rate.Date.Date && e.Currency == rate.Currency);
-        } 
+            return bank.ExchangeRates.Where(e => e.Date.Date == rate.Date.Date && e.Currency == rate.Currency).FirstOrDefault();
+        }
     }
 }

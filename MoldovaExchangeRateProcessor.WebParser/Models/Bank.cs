@@ -9,7 +9,7 @@ namespace MoldovaExchangeRateProcessor.WebParser.Models
     {
         public Bank()
         {
-
+            ExchangeRates = new List<ExchangeRate>();
         }
         public Bank(string name, List<ExchangeRate> rates)
         {
