@@ -18,21 +18,33 @@ namespace MoldovaExchangeRateProcessor.ProcessorWorkerService.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder
-                .Entity<ExchangeRate>()
+            modelBuilder.Entity<ExchangeRate>()
                 .Property(e => e.Currency)
                 .HasConversion(
                     v => v.ToString(),
                     v => (ExchangeRateCurrency)Enum.Parse(typeof(ExchangeRateCurrency), v));
 
             modelBuilder.Entity<ExchangeRate>()
-                 .HasIndex(e => new { e.BankId, e.Date, e.Currency })
-                 .IsUnique();
+                .Property(e => e.BankId)
+                .IsRequired();
+
+            modelBuilder.Entity<ExchangeRate>()
+                .Property(e => e.Date)
+                .HasColumnType("Date")
+                .IsRequired();                   
+
+            modelBuilder.Entity<ExchangeRate>()
+                .HasIndex(e => new { e.BankId, e.Date, e.Currency })
+                .IsUnique();
+
+            modelBuilder.Entity<Bank>()
+                .Property(b => b.Name)
+                .HasMaxLength(50)
+                .IsRequired();
 
             modelBuilder.Entity<Bank>()
                 .HasIndex(u => u.Name)
                 .IsUnique();
-
         }
     }
 }
