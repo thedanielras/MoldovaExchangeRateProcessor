@@ -21,6 +21,7 @@ namespace MoldovaExchangeRateProcessor.ProcessorWorkerService
                 .MinimumLevel.Override("Microsoft", Serilog.Events.LogEventLevel.Warning)
                 .Enrich.FromLogContext()
                 .WriteTo.File($"{Directory.GetCurrentDirectory()}\\Log\\Logger.txt")
+                .WriteTo.Console()
                 .CreateLogger();
 
             try

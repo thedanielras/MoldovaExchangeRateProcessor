@@ -1,0 +1,39 @@
+version: '3'
+services:
+    sqlserver:
+        image: mcr.microsoft.com/mssql/server:2017-latest
+        ports: 
+        - "1434:1433"
+        environment:
+            - ACCEPT_EULA=Y
+            - SA_PASSWORD=Test1234%
+        networks: 
+            - moldovaexchangerateprocessor_network       
+    processor-worker:
+        build:
+            context: .
+            dockerfile: MoldovaExchangeRateProcessor.ProcessorWorkerService/Dockerfile
+        depends_on:
+            - sqlserver
+        networks: 
+            - moldovaexchangerateprocessor_network
+        environment:
+            - 'TZ=Europe/Chisinau'
+            - 'ConnectionStrings__SqlServerDb=Server=sqlserver;Database=ExchangeRateProcessorDB;User Id=SA;Password=Test1234%;'
+        entrypoint: ["./wait-for-it.sh", "sqlserver:1433", "--", "./startup.sh"]
+    telegram-bot:
+        build:
+            context: .
+            dockerfile: MoldovaExchangeRateProcessor.TelegramBot/Dockerfile
+        depends_on:
+            - processor-worker
+        networks: 
+            - moldovaexchangerateprocessor_network
+        environment:
+            - 'TZ=Europe/Chisinau'
+            - 'TelegramApiKey=1330904374:AAGWCayIhiLPxhYeFzccJBDH3i2NhXvOBx4'
+            - 'ConnectionStrings__SqlServerDb=Server=sqlserver;Database=ExchangeRateProcessorDB;User Id=SA;Password=Test1234%;'
+        entrypoint: ["./wait-for-it.sh", "sqlserver:1433", "--", "dotnet", "/release/MoldovaExchangeRateProcessor.TelegramBot/MoldovaExchangeRateProcessor.TelegramBot.dll"]            
+networks:
+    moldovaexchangerateprocessor_network:
+        driver: bridge

@@ -18,8 +18,6 @@ namespace MoldovaExchangeRateProcessor.WebParser.Models
         }
         
         public int Id { get; private set; }
-        [Required]
-        [StringLength(50)]
         public string Name { get; set; }
         public List<ExchangeRate> ExchangeRates { get; set; }
     }

@@ -20,12 +20,8 @@ namespace MoldovaExchangeRateProcessor.WebParser.Models
         public int Id { get; private set; }
         public double BuyRate { get; set; }
         public double SellRate { get; set; }
-
-        [DataType(DataType.Date)]
-        [Column(TypeName = "Date")]
         public DateTime Date { get; private set; }
         public ExchangeRateCurrency Currency { get; private set; }
-        [Required]
         public Bank Bank { get; set; }
         public int BankId { get; set; }
         public bool IsCorrect
