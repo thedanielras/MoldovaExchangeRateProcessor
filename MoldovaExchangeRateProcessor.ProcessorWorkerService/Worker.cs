@@ -58,11 +58,12 @@ namespace MoldovaExchangeRateProcessor.ProcessorWorkerService
 
         private async Task<Bank[]> GetBanksExchangeRatesAsync()
         {
-            var bankProcessors = new List<BankProcessor> { 
-                new MoldovaAgroindbank(), 
-                new Victoriabank(), 
+            var bankProcessors = new List<BankProcessor> {
+                new MoldovaAgroindbank(),
+                new Victoriabank(),
                 new Moldindconbank(),
-                new Eximbank()
+                new Eximbank(),
+                new Fincombank()
             };
 
             var tasks = new List<Task<Bank>>();
