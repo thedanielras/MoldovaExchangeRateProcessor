@@ -20,15 +20,16 @@ namespace MoldovaExchangeRateProcessor.TelegramBot
             _config = config;
         }
 
-        public void Run()
-        {
+        public void Run() { 
             var telegramApiKey = _config.GetValue<string>("TelegramApiKey");
+            Console.WriteLine($"API KEY IS {telegramApiKey}");
             var botArgs = new BotClientArgs(_logger, _config, _repo, telegramApiKey);
             var botClient = ExchangeRateProcessorBotClient.GetBotClient(botArgs);
             botClient.StartRecieving();
-            Console.WriteLine("Press any key to stop Bot Client and exit...");
-            Console.ReadKey();
-            botClient.StopRecieving();
+            Console.WriteLine("Bot is running...");
+
+            // Dont exit upon application stop
+            while (true) { }
         }
     }
 }
